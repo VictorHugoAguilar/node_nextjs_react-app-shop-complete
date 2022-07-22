@@ -13,25 +13,47 @@ const ProductPage: FC<Props> = ({ product }) => {
             title={product.title}
             pageDescription={product.description}
         >
-            <Grid container spacing={3}>
-                <Grid item xs={12} sm={7}>
-
+            <Grid
+                container
+                spacing={3}
+            >
+                <Grid
+                    item
+                    xs={12}
+                    sm={7}
+                >
                 </Grid>
-
-                <Grid item xs={12} sm={5}>
-                    <Box display={'flex'} flexDirection={'column'}>
+                <Grid
+                    item
+                    xs={12}
+                    sm={5}
+                >
+                    <Box
+                        display={'flex'}
+                        flexDirection={'column'}
+                    >
                         {/* titulos */}
-                        <Typography variant='h1' component='h1'>{product.title}</Typography>
-                        <Typography variant='subtitle1' component='h2'>{`€ ${product.price}`}</Typography>
+                        <Typography
+                            variant='h1'
+                            component='h1'
+                        >{product.title}
+                        </Typography>
+                        <Typography
+                            variant='subtitle1'
+                            component='h2'
+                        >{`€ ${product.price}`}
+                        </Typography>
                     </Box>
-
-                    <Box sx={{ mt: 2 }}>
-                        <Typography variant='subtitle2'>Cantidad </Typography>
+                    <Box
+                        sx={{ mt: 2 }}
+                    >
+                        <Typography
+                            variant='subtitle2'
+                        >Cantidad
+                        </Typography>
                     </Box>
-
                 </Grid>
             </Grid>
-
         </ShopLayout>
     );
 }
