@@ -3,12 +3,21 @@ import { ShopLayout } from '../components/layout';
 
 const Custom404 = () => {
     return (
-        <ShopLayout title={'Page not found'} pageDescription={'No se puede mostrar nada'} >
+        <ShopLayout
+            title={'Page not found'}
+            pageDescription={'No se puede mostrar nada'}
+        >
             <Box
                 display='flex'
                 justifyContent='center'
                 alignItems='center'
                 height='calc(100vh - 200px)'
+                sx={{
+                    flexDirection: {
+                        xs: 'column',
+                        sm: 'row',
+                    },
+                }}
             >
                 <Typography
                     variant='h1'
@@ -21,7 +30,7 @@ const Custom404 = () => {
                 > Page not found </Typography>
             </Box>
 
-        </ShopLayout>
+        </ShopLayout >
     );
 }
 
