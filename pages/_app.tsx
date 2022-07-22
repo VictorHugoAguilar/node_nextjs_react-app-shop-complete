@@ -4,6 +4,7 @@ import { ThemeProvider } from '@emotion/react'
 import { CssBaseline } from '@mui/material'
 
 import { lightTheme } from '../themes'
+
 import '../styles/globals.css'
 
 function MyApp({ Component, pageProps }: AppProps) {

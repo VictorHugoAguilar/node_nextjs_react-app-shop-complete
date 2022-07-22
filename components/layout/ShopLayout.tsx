@@ -6,7 +6,7 @@ import { Navbar } from '../ui';
 interface Props {
     title: string;
     pageDescription: string;
-    imageFull: string;
+    imageFull?: string;
     children: React.ReactNode;
 }
 
