@@ -10,9 +10,7 @@ export const SideMenu = () => {
             sx={{ backdropFilter: 'blur(4px)', transition: 'all 0.5s ease-out' }}
         >
             <Box sx={{ width: 250, paddingTop: 5 }}>
-
                 <List>
-
                     <ListItem>
                         <Input
                             type='text'
@@ -28,63 +26,51 @@ export const SideMenu = () => {
                             }
                         />
                     </ListItem>
-
                     <ListItem button>
                         <ListItemIcon>
                             <AccountCircleOutlined />
                         </ListItemIcon>
                         <ListItemText primary={'Perfil'} />
                     </ListItem>
-
                     <ListItem button>
                         <ListItemIcon>
                             <ConfirmationNumberOutlined />
                         </ListItemIcon>
                         <ListItemText primary={'Mis Ordenes'} />
                     </ListItem>
-
-
                     <ListItem button sx={{ display: { xs: '', sm: 'none' } }}>
                         <ListItemIcon>
                             <MaleOutlined />
                         </ListItemIcon>
                         <ListItemText primary={'Hombres'} />
                     </ListItem>
-
                     <ListItem button sx={{ display: { xs: '', sm: 'none' } }}>
                         <ListItemIcon>
                             <FemaleOutlined />
                         </ListItemIcon>
                         <ListItemText primary={'Mujeres'} />
                     </ListItem>
-
                     <ListItem button sx={{ display: { xs: '', sm: 'none' } }}>
                         <ListItemIcon>
                             <EscalatorWarningOutlined />
                         </ListItemIcon>
                         <ListItemText primary={'Niños'} />
                     </ListItem>
-
-
                     <ListItem button>
                         <ListItemIcon>
                             <VpnKeyOutlined />
                         </ListItemIcon>
                         <ListItemText primary={'Ingresar'} />
                     </ListItem>
-
                     <ListItem button>
                         <ListItemIcon>
                             <LoginOutlined />
                         </ListItemIcon>
                         <ListItemText primary={'Salir'} />
                     </ListItem>
-
-
                     {/* Admin */}
                     <Divider />
                     <ListSubheader>Admin Panel</ListSubheader>
-
                     <ListItem button>
                         <ListItemIcon>
                             <CategoryOutlined />
@@ -97,7 +83,6 @@ export const SideMenu = () => {
                         </ListItemIcon>
                         <ListItemText primary={'Ordenes'} />
                     </ListItem>
-
                     <ListItem button>
                         <ListItemIcon>
                             <AdminPanelSettings />
