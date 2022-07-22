@@ -31,13 +31,23 @@ export const ProductCard: FC<Props> = ({ product }) => {
                         className="fadeIn"
                         image={productImage}
                         title={product.title}
+                        onLoad={() => console.log('loaded')}
                     />
                 </CardActionArea>
             </Card>
-            <Box sx={{ mt: 1 }} className='fadeIn'>
-                <Typography fontWeight={700}>{product.title}</Typography>
-                <Typography fontWeight={500}>{`€ ${product.price} `}</Typography>
+            <Box
+                sx={{ mt: 1 }}
+                className='fadeIn'
+            >
+                <Typography
+                    fontWeight={700}
+                >{product.title}
+                </Typography>
 
+                <Typography
+                    fontWeight={500}
+                >{`€ ${product.price} `}
+                </Typography>
             </Box>
         </Grid>
     )
