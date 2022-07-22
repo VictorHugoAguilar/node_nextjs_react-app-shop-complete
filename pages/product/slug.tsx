@@ -22,7 +22,9 @@ const ProductPage: FC<Props> = ({ product }) => {
                     <Box sx={{ mt: 2 }} >
                         <Typography variant='subtitle2' >Cantidad </Typography>
                     </Box>
+                    {/* agregar al carrito */}
                     <Box color='secondary' className="circular-btn" > Agregar al carrito </Box>
+                    {/*  */}
                 </Grid>
             </Grid>
         </ShopLayout>
