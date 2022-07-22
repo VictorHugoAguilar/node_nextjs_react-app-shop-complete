@@ -1,13 +1,16 @@
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Button, Chip, Grid, Typography } from "@mui/material";
 import { FC } from "react";
 import { ShopLayout } from "../../components/layout";
+import { initialData } from "../../database/products";
 import { IProduct } from "../../interfaces";
 
 interface Props {
     product: IProduct;
 }
 
-const ProductPage: FC<Props> = ({ product }) => {
+const product = initialData.products[0]
+
+const ProductPage: FC<Props> = () => {
     return (
         <ShopLayout title={product.title} pageDescription={product.description}  >
             <Grid container spacing={3} >
@@ -23,8 +26,15 @@ const ProductPage: FC<Props> = ({ product }) => {
                         <Typography variant='subtitle2' >Cantidad </Typography>
                     </Box>
                     {/* agregar al carrito */}
-                    <Box color='secondary' className="circular-btn" > Agregar al carrito </Box>
-                    {/*  */}
+                    <Button color='secondary' className="circular-btn" fullWidth >Agregar al carrito </Button>
+                    {/* No hay disponibles */}
+                    {/*<Chip label='No hay disponibles' color='error' variant='outlined' fullWidth/>*/}
+                    {/* Description */}
+                    <Box sx={{ mt: 3 }} >
+                        <Typography variant='subtitle2' >Descripción </Typography>
+                        <Typography variant='body2' >{product.description}</Typography>
+                    </Box>
+
                 </Grid>
             </Grid>
         </ShopLayout>
