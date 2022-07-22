@@ -1,8 +1,9 @@
-import { Box, Button, Chip, Grid, Typography } from "@mui/material";
 import { FC } from "react";
+import { Box, Button, Chip, Grid, Typography } from "@mui/material";
 import { ShopLayout } from "../../components/layout";
 import { initialData } from "../../database/products";
 import { IProduct } from "../../interfaces";
+import { ProductSlideshow } from '../../components/products';
 
 interface Props {
     product: IProduct;
@@ -14,7 +15,9 @@ const ProductPage: FC<Props> = () => {
     return (
         <ShopLayout title={product.title} pageDescription={product.description}  >
             <Grid container spacing={3} >
+                {/* Slide of products */}
                 <Grid item xs={12} sm={7}>
+                    <ProductSlideshow images={product.images} />
                 </Grid>
                 <Grid item xs={12} sm={5}  >
                     <Box display={'flex'} flexDirection={'column'} >
