@@ -15,7 +15,6 @@ export const ShopLayout: FC<Props> = ({ title, pageDescription, imageFull, child
         <>
             <Head>
                 <title>{title}</title>
-
                 <meta name="description" content={pageDescription} />
                 <meta property="og:title" content={title} />
                 <meta property="og:description" content={pageDescription} />
@@ -23,13 +22,10 @@ export const ShopLayout: FC<Props> = ({ title, pageDescription, imageFull, child
                     imageFull && (<meta property="og:image" content={imageFull} />)
                 }
             </Head>
-
             <nav>
                 <Navbar />
             </nav>
-
             <SideMenu />
-
             <main
                 style={{
                     margin: '80px auto',
@@ -39,7 +35,6 @@ export const ShopLayout: FC<Props> = ({ title, pageDescription, imageFull, child
             >
                 {children}
             </main>
-
             <footer>
                 {/* footer */}
             </footer>
