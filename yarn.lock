@@ -1822,10 +1822,10 @@ react-is@^18.2.0:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-18.2.0.tgz#199431eeaaa2e09f86427efbb4f1473edb47609b"
   integrity sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==
 
-react-slideshow-image@^4.0.4:
-  version "4.0.4"
-  resolved "https://registry.yarnpkg.com/react-slideshow-image/-/react-slideshow-image-4.0.4.tgz#7011c6769b579300a23e18d27b5ed5aec66a9a75"
-  integrity sha512-nW35/uzORyZBXHWlcftXUqXOlfsMdHSSdAC6y7C99PqKDGIGAa/SokQg+kLeFO8ZIp9hc59eW6IGklsDjJOx2A==
+react-slideshow-image@^3.7.1:
+  version "3.7.5"
+  resolved "https://registry.yarnpkg.com/react-slideshow-image/-/react-slideshow-image-3.7.5.tgz#d49834a9c99bd5fe3d49eb4d7b9da83e47288ec7"
+  integrity sha512-f+E7LBeJn2TPf8Gj5HF2qtNkU3vb9A/S/VHMKaALybfw+l7P/0l0k6CD7dmEpTaB6WTc7XcYVSpxZ6+pM8gzQQ==
   dependencies:
     "@tweenjs/tween.js" "^18.6.4"
     resize-observer-polyfill "^1.5.1"
