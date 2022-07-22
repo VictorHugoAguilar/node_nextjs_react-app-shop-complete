@@ -49,6 +49,7 @@ export const lightTheme = createTheme({
         variant: 'contained',
         size: 'small',
         disableElevation: true,
+        color: 'info'
       },
       styleOverrides: {
         root: {
