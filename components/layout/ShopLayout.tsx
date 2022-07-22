@@ -9,11 +9,18 @@ interface Props {
     children: React.ReactNode;
 }
 
-export const ShopLayout: FC<Props> = ({ title, children }) => {
+export const ShopLayout: FC<Props> = ({ title, pageDescription, imageFull, children }) => {
     return (
         <>
             <Head>
                 <title>{title}</title>
+
+                <meta name="description" content={pageDescription} />
+                <meta property="og:title" content={title} />
+                <meta property="og:description" content={pageDescription} />
+                {
+                    imageFull && (<meta property="og:image" content={imageFull} />)
+                }
             </Head>
 
             <nav>
