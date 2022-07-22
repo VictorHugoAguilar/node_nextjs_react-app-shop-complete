@@ -5,6 +5,7 @@ import { initialData } from "../../database/products";
 import { IProduct } from "../../interfaces";
 import { ProductSlideshow } from '../../components/products';
 import { ItemCounter } from "../../components/ui";
+import { SizeSelector } from "../../components/ui/SizeSelector";
 
 interface Props {
     product: IProduct;
@@ -29,6 +30,10 @@ const ProductPage: FC<Props> = () => {
                     <Box sx={{ mt: 2 }} >
                         <Typography variant='subtitle2' >Cantidad </Typography>
                         <ItemCounter />
+                        <SizeSelector
+                            selectedSize={product.sizes[2]}
+                            sizes={product.sizes}
+                        />
                     </Box>
                     {/* agregar al carrito */}
                     <Button color='secondary' className="circular-btn" fullWidth  >Agregar al carrito </Button>
