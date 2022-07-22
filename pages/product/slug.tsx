@@ -4,6 +4,7 @@ import { ShopLayout } from "../../components/layout";
 import { initialData } from "../../database/products";
 import { IProduct } from "../../interfaces";
 import { ProductSlideshow } from '../../components/products';
+import { ItemCounter } from "../../components/ui";
 
 interface Props {
     product: IProduct;
@@ -27,9 +28,10 @@ const ProductPage: FC<Props> = () => {
                     </Box>
                     <Box sx={{ mt: 2 }} >
                         <Typography variant='subtitle2' >Cantidad </Typography>
+                        <ItemCounter />
                     </Box>
                     {/* agregar al carrito */}
-                    <Button color='secondary' className="circular-btn" fullWidth >Agregar al carrito </Button>
+                    <Button color='secondary' className="circular-btn" fullWidth  >Agregar al carrito </Button>
                     {/* No hay disponibles */}
                     {/*<Chip label='No hay disponibles' color='error' variant='outlined' fullWidth/>*/}
                     {/* Description */}
