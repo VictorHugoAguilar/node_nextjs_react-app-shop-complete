@@ -19,11 +19,9 @@ const HomePage: NextPage = () => {
         variant="h2"
         sx={{ mb: 1 }}
       >Todos los productos</Typography>
-
       <ProductList
         products={initialData.products as any}
       />
-
     </ShopLayout>
   )
 }
