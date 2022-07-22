@@ -29,7 +29,6 @@ const Custom404 = () => {
                     marginLeft={2}
                 > Page not found </Typography>
             </Box>
-
         </ShopLayout >
     );
 }
