@@ -7,15 +7,12 @@ interface Props {
 }
 
 export const ProductCard: FC<Props> = ({ product }) => {
-
     const [isHovered, setIsHovered] = useState(false);
-
     const productImage = useMemo(() => {
         return isHovered
             ? `products/${product.images[1]}`
             : `products/${product.images[0]}`
     }, [isHovered, product.images]);
-
     return (
         <Grid
             item
@@ -43,7 +40,6 @@ export const ProductCard: FC<Props> = ({ product }) => {
                     fontWeight={700}
                 >{product.title}
                 </Typography>
-
                 <Typography
                     fontWeight={500}
                 >{`€ ${product.price} `}
