@@ -3,8 +3,13 @@ import { Typography } from '@mui/material'
 import { ShopLayout } from '../components/layout'
 import { ProductList } from '../components/products/'
 import { initialData } from '../database/products'
+import { useProducts } from '../hooks'
+import { FullScreenLoading } from '../components/ui'
 
 const HomePage: NextPage = () => {
+
+  const { products, isLoading, isError } = useProducts('/products');
+
   return (
     <ShopLayout
       title="Shop Live"
@@ -19,9 +24,14 @@ const HomePage: NextPage = () => {
         variant="h2"
         sx={{ mb: 1 }}
       >Todos los productos</Typography>
-      <ProductList
-        products={initialData.products as any}
-      />
+
+      {
+        isLoading ?
+          (<FullScreenLoading />)
+          :
+          (<ProductList products={products} />)
+      }
+
     </ShopLayout>
   )
 }
