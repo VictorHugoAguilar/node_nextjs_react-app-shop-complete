@@ -2,6 +2,7 @@ import { Box, Button, CardActionArea, CardMedia, Grid, Link, Typography } from "
 import { initialData } from "../../database/products";
 import NextLink from "next/link";
 import { ItemCounter } from "../ui";
+import { FC } from "react";
 
 
 const productsInCart = [
@@ -10,8 +11,12 @@ const productsInCart = [
     initialData.products[2],
 ];
 
+interface Props {
+    editable?: boolean;
+}
 
-export const CartList = () => {
+export const CartList: FC<Props> = ({ editable }) => {
+
     return (
         <>
             {
@@ -35,15 +40,24 @@ export const CartList = () => {
                             <Box display={'flex'} flexDirection={'column'} >
                                 <Typography variant='body1'>{product.title}</Typography>
                                 <Typography variant='body1'> Talla: <strong>M</strong></Typography>
-                                {/* Condicional */}
-                                <ItemCounter />
+                                {/* Condicional si es editable */}
+                                {
+                                    editable ? (
+                                        <ItemCounter />
+                                    ) : (
+                                        <Typography variant='body1'>3 items<strong>1</strong></Typography>
+                                    )
+                                }
                             </Box>
                         </Grid>
-                        {/* Condicional */}
                         <Grid item xs={2} display='flex' alignItems='center' flexDirection='column'>
                             <Typography variant='h2'>{`€ ${product.price}`}</Typography>
-                            {/* Editable */}
-                            <Button variant='text' color='secondary' >Eliminar</Button>
+                            {/* Condicional si es editable */}
+                            {
+                                editable && (
+                                    <Button variant='text' color='secondary' >Eliminar</Button>
+                                )
+                            }
                         </Grid>
                     </Grid>
                 ))
