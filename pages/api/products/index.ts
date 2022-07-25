@@ -8,7 +8,6 @@ type Data =
     | IProduct[]
     | IProduct;
 
-
 export default function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
 
     switch (req.method) {
@@ -39,6 +38,5 @@ const getProducts = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     await db.disconnect();
 
     return res.status(200).json(products);
-
 }
 
