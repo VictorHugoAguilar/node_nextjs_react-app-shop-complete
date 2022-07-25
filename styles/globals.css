@@ -24,10 +24,10 @@
 .circular-btn {
   border-radius: 30px;
   background-color: hwb(217 19% 38%) !important;
+  border:thin solid hwb(217 19% 38%) ;
   color: white;
   padding-right: 30px;
   padding-left: 30px;
-
 }
 
 .circular-btn:hover {
