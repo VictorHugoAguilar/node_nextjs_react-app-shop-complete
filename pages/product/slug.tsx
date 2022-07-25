@@ -3,7 +3,7 @@ import { Box, Button, Chip, Grid, Typography } from "@mui/material";
 import { ShopLayout } from "../../components/layout";
 import { initialData } from "../../database/products";
 import { IProduct } from "../../interfaces";
-import { ProductSlideshow } from '../../components/products';
+import { ProductSlide } from '../../components/products';
 import { ItemCounter } from "../../components/ui";
 import { SizeSelector } from "../../components/ui/SizeSelector";
 
@@ -19,7 +19,7 @@ const ProductPage: FC<Props> = () => {
             <Grid container spacing={3} >
                 {/* Slide of products */}
                 <Grid item xs={12} sm={7}>
-                    <ProductSlideshow images={product.images} />
+                    <ProductSlide images={product.images} />
                 </Grid>
                 <Grid item xs={12} sm={5}  >
                     <Box display={'flex'} flexDirection={'column'} >
