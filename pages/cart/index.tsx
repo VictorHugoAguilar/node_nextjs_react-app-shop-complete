@@ -9,7 +9,7 @@ const CartPage = () => {
             <Grid container >
                 <Grid item xs={12} sm={7}>
                     {/* CartList */}
-                    <CartList />
+                    <CartList editable />
                 </Grid>
                 <Grid item xs={12} sm={5}>
                     <Card className="summary-cart" sx={{ padding: '5%' }}>
