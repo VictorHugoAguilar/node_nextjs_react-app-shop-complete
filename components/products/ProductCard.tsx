@@ -10,13 +10,14 @@ interface Props {
 export const ProductCard: FC<Props> = ({ product }) => {
 
     const [isHovered, setIsHovered] = useState(false);
-    const [ isImageLoaded, setIsImageLoaded ] = useState(false);
+    const [isImageLoaded, setIsImageLoaded] = useState(false);
 
     const productImage = useMemo(() => {
         return isHovered
             ? `/products/${product.images[1]}`
             : `/products/${product.images[0]}`
     }, [isHovered, product.images]);
+
     return (
         <Grid
             item
@@ -27,7 +28,7 @@ export const ProductCard: FC<Props> = ({ product }) => {
             onLoad={() => setIsImageLoaded(true)}
         >
             <Card>
-                <NextLink href="/product/slug" passHref>
+                <NextLink href={`/product/${product.slug}`} passHref prefetch={false}>
                     <Link>
                         <CardActionArea>
                             <CardMedia
@@ -35,7 +36,7 @@ export const ProductCard: FC<Props> = ({ product }) => {
                                 className="fadeIn"
                                 image={productImage}
                                 title={product.title}
-                                onLoad={() => console.log('loaded')}
+                                onLoad={() => {}}
                             />
                         </CardActionArea>
                     </Link>
