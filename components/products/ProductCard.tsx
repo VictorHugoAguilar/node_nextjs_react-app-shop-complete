@@ -8,7 +8,10 @@ interface Props {
 }
 
 export const ProductCard: FC<Props> = ({ product }) => {
+
     const [isHovered, setIsHovered] = useState(false);
+    const [ isImageLoaded, setIsImageLoaded ] = useState(false);
+
     const productImage = useMemo(() => {
         return isHovered
             ? `products/${product.images[1]}`
@@ -21,6 +24,7 @@ export const ProductCard: FC<Props> = ({ product }) => {
             sm={4}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
+            onLoad={() => setIsImageLoaded(true)}
         >
             <Card>
                 <NextLink href="/product/slug" passHref>
@@ -38,7 +42,7 @@ export const ProductCard: FC<Props> = ({ product }) => {
                 </NextLink>
             </Card>
             <Box
-                sx={{ mt: 1 }}
+                sx={{ mt: 1, display: isImageLoaded ? 'block' : 'none' }}
                 className='fadeIn'
             >
                 <Typography
