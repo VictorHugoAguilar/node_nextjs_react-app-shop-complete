@@ -1,19 +1,17 @@
-import { FC } from "react";
-import { Box, Button, Chip, Grid, Typography } from "@mui/material";
-import { ShopLayout } from "../../components/layout";
-import { initialData } from "../../database/products";
+import { GetServerSideProps, NextPage } from "next";
+import { dbProducts } from "../../database";
 import { IProduct } from "../../interfaces";
-import { ProductSlide } from '../../components/products';
 import { ItemCounter } from "../../components/ui";
+import { ShopLayout } from "../../components/layout";
+import { ProductSlide } from '../../components/products';
 import { SizeSelector } from "../../components/ui/SizeSelector";
+import { Box, Button, Chip, Grid, Typography } from "@mui/material";
 
 interface Props {
     product: IProduct;
 }
 
-const product = initialData.products[0]
-
-const ProductPage: FC<Props> = () => {
+const ProductPage: NextPage<Props> = ({ product }) => {
     return (
         <ShopLayout title={product.title} pageDescription={product.description}  >
             <Grid container spacing={3} >
@@ -44,11 +42,30 @@ const ProductPage: FC<Props> = () => {
                         <Typography variant='subtitle2' >Descripción </Typography>
                         <Typography variant='body2' >{product.description}</Typography>
                     </Box>
-
                 </Grid>
             </Grid>
         </ShopLayout>
     );
+}
+
+// You should use getServerSideProps to fetch data from the server.
+// This is the only way to fetch data from the server.
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+    const { slug = '' } = params as { slug: string };
+    const product = await dbProducts.getProductBySlug(slug);
+    if (!product) {
+        return {
+            redirect: {
+                destination: '/',
+                permanent: false,
+            }
+        }
+    }
+    return {
+        props: {
+            product: product
+        }
+    }
 }
 
 export default ProductPage;
