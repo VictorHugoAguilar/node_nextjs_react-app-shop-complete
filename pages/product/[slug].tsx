@@ -1,11 +1,11 @@
 import { GetServerSideProps, GetStaticPaths, NextPage } from "next";
+import { Box, Button, Grid, Typography } from "@mui/material";
 import { dbProducts } from "../../database";
 import { IProduct } from "../../interfaces";
 import { ItemCounter } from "../../components/ui";
 import { ShopLayout } from "../../components/layout";
 import { ProductSlide } from '../../components/products';
 import { SizeSelector } from "../../components/ui/SizeSelector";
-import { Box, Button, Chip, Grid, Typography } from "@mui/material";
 
 interface Props {
     product: IProduct;
@@ -91,7 +91,6 @@ export const getStaticProps: GetServerSideProps = async ({ params }) => {
             }
         };
     }
-
     return {
         props: {
             product
@@ -99,6 +98,5 @@ export const getStaticProps: GetServerSideProps = async ({ params }) => {
         revalidate: 60 * 60 * 24
     }
 }
-
 
 export default ProductPage;
