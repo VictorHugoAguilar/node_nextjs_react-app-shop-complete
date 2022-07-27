@@ -1,24 +1,35 @@
-import { useContext } from "react";
-import { Box, Divider, Drawer, IconButton, Input, InputAdornment, List, ListItem, ListItemButton, ListItemIcon, ListItemText, ListSubheader } from "@mui/material"
+import { useContext, useState } from "react";
 import { useRouter } from "next/router";
+import { Box, Divider, Drawer, IconButton, Input, InputAdornment, List, ListItem, ListItemButton, ListItemIcon, ListItemText, ListSubheader } from "@mui/material"
 import { AccountCircleOutlined, AdminPanelSettings, CategoryOutlined, ConfirmationNumberOutlined, EscalatorWarningOutlined, FemaleOutlined, LoginOutlined, MaleOutlined, SearchOutlined, VpnKeyOutlined } from "@mui/icons-material"
 import { UiContext } from "../../context";
 
 
 export const SideMenu = () => {
 
-
-    const router = useRouter();
+    const { asPath, push } = useRouter();
     const { isMenuOpen, toogleSideMenu } = useContext(UiContext);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [ isSearchVisible, setIsSearchVisible ] = useState(false);
 
     const navigateTo = (url: string) => {
         toogleSideMenu();
+        push(url);
+    }
+
+    const onSearchChange = () => {
+        console.log('in onSearchChange, ', searchTerm.trim().length);
+        if (searchTerm.trim().length === 0) {
+            return;
+        }
+        navigateTo(`/search/${searchTerm}`);
     }
 
     return (
         <Drawer
             open={isMenuOpen}
             onClose={() => toogleSideMenu()}
+            onKeyPress={(e) => e.key === 'Enter' ? onSearchChange() : ''}
             anchor='right'
             sx={{ backdropFilter: 'blur(4px)', transition: 'all 0.5s ease-out' }}
         >
@@ -26,12 +37,16 @@ export const SideMenu = () => {
                 <List>
                     <ListItem>
                         <Input
+                            autoFocus
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
                             type='text'
                             placeholder="Buscar..."
                             endAdornment={
                                 <InputAdornment position="end">
                                     <IconButton
                                         aria-label="toggle password visibility"
+                                        onClick={onSearchChange}
                                     >
                                         <SearchOutlined />
                                     </IconButton>
