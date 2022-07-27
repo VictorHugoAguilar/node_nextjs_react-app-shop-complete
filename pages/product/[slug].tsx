@@ -1,17 +1,62 @@
+import { useContext, useState } from "react";
 import { GetServerSideProps, GetStaticPaths, NextPage } from "next";
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { useRouter } from "next/router";
+import { Box, Button, Chip, Grid, Typography } from "@mui/material";
 import { dbProducts } from "../../database";
-import { IProduct } from "../../interfaces";
+import { ICartProduct, IProduct, ISize } from "../../interfaces";
 import { ItemCounter } from "../../components/ui";
 import { ShopLayout } from "../../components/layout";
 import { ProductSlide } from '../../components/products';
 import { SizeSelector } from "../../components/ui/SizeSelector";
+import { CartContext } from "../../context";
 
 interface Props {
     product: IProduct;
 }
 
 const ProductPage: NextPage<Props> = ({ product }) => {
+
+    const router = useRouter();
+    const { addProductToCart } = useContext(CartContext);
+
+    const [tempCartProduct, setTempCartProduct] = useState<ICartProduct>({
+        _id: product._id,
+        description: product.description,
+        image: product.images[0],
+        price: product.price,
+        size: undefined,
+        slug: product.slug,
+        title: product.title,
+        gender: product.gender,
+        quantity: 1,
+    });
+
+    const selectedSize = (size: ISize) => {
+        setTempCartProduct(currentProduct => ({
+            ...currentProduct,
+            size
+        }));
+    }
+
+    const onUpdateQuantity = (quantity: number) => {
+        setTempCartProduct(currentProduct => ({
+            ...currentProduct,
+            quantity
+        }));
+    }
+
+    const onAddProduct = () => {
+        if (!tempCartProduct.size) {
+            console.info('Please select a size');
+            return;
+        }
+
+        // Llamar a la accion del context para agregar al carrito
+        addProductToCart(tempCartProduct);
+        console.log({ tempCartProduct });
+        router.push('/cart');
+    }
+
     return (
         <ShopLayout title={product.title} pageDescription={product.description}  >
             <Grid container spacing={3} >
@@ -27,17 +72,33 @@ const ProductPage: NextPage<Props> = ({ product }) => {
                     </Box>
                     <Box sx={{ mt: 2 }} >
                         <Typography variant='subtitle2' >Cantidad </Typography>
-                        <ItemCounter />
+
+                        <ItemCounter
+                            currentValue={tempCartProduct.quantity}
+                            updateQuantity={onUpdateQuantity}
+                            maxValue={product.inStock > 10 ? 10 : product.inStock}
+                        />
                         <SizeSelector
-                            selectedSize={product.sizes[2]}
                             sizes={product.sizes}
+                            selectedSize={tempCartProduct.size}
+                            onSelectedSize={selectedSize}
                         />
                     </Box>
                     {/* agregar al carrito */}
-                    <Button color='secondary' className="circular-btn" fullWidth  >Agregar al carrito </Button>
                     {/* No hay disponibles */}
-                    {/*<Chip label='No hay disponibles' color='error' variant='outlined' fullWidth/>*/}
-                    {/* Description */}
+                    {
+                        product.inStock > 0 ?
+                            (
+                                <Button color='secondary' className="circular-btn" fullWidth onClick={onAddProduct}>
+                                    {
+                                        tempCartProduct.size ? 'Agregar al carrito' : 'Selecciona un tamaño'
+                                    }
+
+                                </Button>
+                            ) : (
+                                <Chip color='error' label='No hay disponibles' variant='outlined' sx={{ width: '100%', mt: 1 }} />
+                            )
+                    }
                     <Box sx={{ mt: 3 }} >
                         <Typography variant='subtitle2' >Descripción </Typography>
                         <Typography variant='body2' >{product.description}</Typography>
