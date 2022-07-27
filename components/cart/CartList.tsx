@@ -43,7 +43,6 @@ export const CartList: FC<Props> = ({ editable = false }) => {
                             <Box display='flex' flexDirection='column'>
                                 <Typography variant='body1'>{product.title}</Typography>
                                 <Typography variant='body1'>Talla: <strong>{product.size}</strong></Typography>
-
                                 {
                                     editable
                                         ? (
@@ -57,7 +56,6 @@ export const CartList: FC<Props> = ({ editable = false }) => {
                                             <Typography variant='h5'>{product.quantity} {product.quantity > 1 ? 'productos' : 'producto'}</Typography>
                                         )
                                 }
-
                             </Box>
                         </Grid>
                         <Grid item xs={2} display='flex' alignItems='center' flexDirection='column'>

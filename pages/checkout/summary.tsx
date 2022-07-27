@@ -1,5 +1,5 @@
 import { Box, Button, Card, CardContent, Divider, Grid, Link, Typography } from "@mui/material";
-import { CartList, OrderSymmary } from "../../components/cart";
+import { CartList, OrderSummary } from "../../components/cart";
 import { ShopLayout } from "../../components/layout";
 import NextLink from 'next/link';
 
@@ -32,7 +32,7 @@ const SummaryPage = () => {
                             <Typography>Teléfono</Typography>
                             <Divider sx={{ my: 1 }} />
                             <Typography variant="subtitle1" > Orden</Typography>
-                            <OrderSymmary />
+                            <OrderSummary />
                             <Box sx={{ mt: 3 }}>
                                 <Button color="secondary" className='circular-btn' fullWidth>Confirmar compra</Button>
                             </Box>
