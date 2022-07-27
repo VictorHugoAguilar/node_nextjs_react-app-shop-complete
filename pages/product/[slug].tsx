@@ -1,4 +1,4 @@
-import { GetServerSideProps, NextPage } from "next";
+import { GetServerSideProps, GetStaticPaths, NextPage } from "next";
 import { dbProducts } from "../../database";
 import { IProduct } from "../../interfaces";
 import { ItemCounter } from "../../components/ui";
@@ -50,22 +50,55 @@ const ProductPage: NextPage<Props> = ({ product }) => {
 
 // You should use getServerSideProps to fetch data from the server.
 // This is the only way to fetch data from the server.
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+// export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+//     const { slug = '' } = params as { slug: string };
+//     const product = await dbProducts.getProductBySlug(slug);
+//     if (!product) {
+//         return {
+//             redirect: {
+//                 destination: '/',
+//                 permanent: false,
+//             }
+//         }
+//     }
+//     return {
+//         props: {
+//             product: product
+//         }
+//     }
+// }
+
+export const getStaticPaths: GetStaticPaths = async (ctx) => {
+    const productSlugs = await dbProducts.getAllProductSlugs();
+    return {
+        paths: productSlugs.map(({ slug }) => ({
+            params: {
+                slug
+            },
+        })),
+        fallback: "blocking"
+    }
+}
+
+export const getStaticProps: GetServerSideProps = async ({ params }) => {
     const { slug = '' } = params as { slug: string };
     const product = await dbProducts.getProductBySlug(slug);
     if (!product) {
         return {
             redirect: {
                 destination: '/',
-                permanent: false,
+                permanent: false
             }
-        }
+        };
     }
+
     return {
         props: {
-            product: product
-        }
+            product
+        },
+        revalidate: 60 * 60 * 24
     }
 }
+
 
 export default ProductPage;
