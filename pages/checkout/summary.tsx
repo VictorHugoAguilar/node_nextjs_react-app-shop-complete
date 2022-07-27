@@ -34,7 +34,7 @@ const SummaryPage = () => {
                             <Typography variant="subtitle1" > Orden</Typography>
                             <OrderSummary />
                             <Box sx={{ mt: 3 }}>
-                                <Button color="secondary" className='circular-btn' fullWidth>Confirmar compra</Button>
+                                <Button color="primary" className='circular-btn' fullWidth>Confirmar compra</Button>
                             </Box>
                         </CardContent>
                     </Card>
