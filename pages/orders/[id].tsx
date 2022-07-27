@@ -1,7 +1,7 @@
 import { FC } from "react";
 import NextLink from 'next/link';
 import { Box, Button, Card, CardContent, Chip, Divider, Grid, Link, Typography } from "@mui/material";
-import { CartList, OrderSymmary } from "../../components/cart";
+import { CartList, OrderSummary } from "../../components/cart";
 import { ShopLayout } from "../../components/layout";
 import { CreditCardOffOutlined, CreditScoreOutlined } from "@mui/icons-material";
 
@@ -44,7 +44,7 @@ const OrderPage: FC = () => {
                             <Typography>Teléfono</Typography>
                             <Divider sx={{ my: 1 }} />
                             <Typography variant="subtitle1" > Orden</Typography>
-                            <OrderSymmary />
+                            <OrderSummary />
                             <Box sx={{ mt: 3 }}>
                                 <h1>Pagar</h1>
                                 <Chip sx={{ my: 2 }} label="La orden ya fue pagada" variant="outlined"
