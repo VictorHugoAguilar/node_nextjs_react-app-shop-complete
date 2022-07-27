@@ -12,7 +12,6 @@ export interface CartState {
     total: number;
 }
 
-
 const CART_INITIAL_STATE: CartState = {
     cart: [],
     numberOfItems: 0,
@@ -24,7 +23,6 @@ const CART_INITIAL_STATE: CartState = {
 interface Props {
     children: React.ReactNode;
 }
-
 
 export const CartProvider: FC<Props> = ({ children }) => {
 
@@ -40,11 +38,9 @@ export const CartProvider: FC<Props> = ({ children }) => {
         }
     }, []);
 
-
     useEffect(() => {
         Cookie.set('cart', JSON.stringify(state.cart));
     }, [state.cart]);
-
 
     useEffect(() => {
 
