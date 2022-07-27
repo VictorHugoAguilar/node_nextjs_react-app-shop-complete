@@ -1,24 +1,32 @@
-import { useContext } from "react";
-import { Box, Divider, Drawer, IconButton, Input, InputAdornment, List, ListItem, ListItemButton, ListItemIcon, ListItemText, ListSubheader } from "@mui/material"
+import { useContext, useState } from "react";
 import { useRouter } from "next/router";
+import { Box, Divider, Drawer, IconButton, Input, InputAdornment, List, ListItem, ListItemButton, ListItemIcon, ListItemText, ListSubheader } from "@mui/material"
 import { AccountCircleOutlined, AdminPanelSettings, CategoryOutlined, ConfirmationNumberOutlined, EscalatorWarningOutlined, FemaleOutlined, LoginOutlined, MaleOutlined, SearchOutlined, VpnKeyOutlined } from "@mui/icons-material"
 import { UiContext } from "../../context";
 
 
 export const SideMenu = () => {
 
-
     const router = useRouter();
     const { isMenuOpen, toogleSideMenu } = useContext(UiContext);
+    const [searchTerm, setSearchTerm] = useState('');
 
     const navigateTo = (url: string) => {
         toogleSideMenu();
+    }
+
+    const onSearchChange = () => {
+        if (searchTerm.trim().length === 0) {
+            return;
+        }
+        navigateTo(`/search/${searchTerm}`);
     }
 
     return (
         <Drawer
             open={isMenuOpen}
             onClose={() => toogleSideMenu()}
+            onKeyPress={(event) => event.key === 'Enter' ? onSearchChange() : ''}
             anchor='right'
             sx={{ backdropFilter: 'blur(4px)', transition: 'all 0.5s ease-out' }}
         >
@@ -26,12 +34,15 @@ export const SideMenu = () => {
                 <List>
                     <ListItem>
                         <Input
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
                             type='text'
                             placeholder="Buscar..."
                             endAdornment={
                                 <InputAdornment position="end">
                                     <IconButton
                                         aria-label="toggle password visibility"
+                                        onClick={onSearchChange}
                                     >
                                         <SearchOutlined />
                                     </IconButton>
