@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { GetServerSideProps, GetStaticPaths, NextPage } from "next";
+import { useRouter } from "next/router";
 import { Box, Button, Chip, Grid, Typography } from "@mui/material";
 import { dbProducts } from "../../database";
 import { ICartProduct, IProduct, ISize } from "../../interfaces";
@@ -7,12 +8,16 @@ import { ItemCounter } from "../../components/ui";
 import { ShopLayout } from "../../components/layout";
 import { ProductSlide } from '../../components/products';
 import { SizeSelector } from "../../components/ui/SizeSelector";
+import { CartContext } from "../../context";
 
 interface Props {
     product: IProduct;
 }
 
 const ProductPage: NextPage<Props> = ({ product }) => {
+
+    const router = useRouter();
+    const { addProductToCart } = useContext(CartContext);
 
     const [tempCartProduct, setTempCartProduct] = useState<ICartProduct>({
         _id: product._id,
@@ -33,6 +38,25 @@ const ProductPage: NextPage<Props> = ({ product }) => {
         }));
     }
 
+    const onUpdateQuantity = (quantity: number) => {
+        setTempCartProduct(currentProduct => ({
+            ...currentProduct,
+            quantity
+        }));
+    }
+
+    const onAddProduct = () => {
+        if (!tempCartProduct.size) {
+            console.info('Please select a size');
+            return;
+        }
+
+        // Llamar a la accion del context para agregar al carrito
+        addProductToCart(tempCartProduct);
+        console.log({ tempCartProduct });
+        router.push('/cart');
+    }
+
     return (
         <ShopLayout title={product.title} pageDescription={product.description}  >
             <Grid container spacing={3} >
@@ -48,7 +72,12 @@ const ProductPage: NextPage<Props> = ({ product }) => {
                     </Box>
                     <Box sx={{ mt: 2 }} >
                         <Typography variant='subtitle2' >Cantidad </Typography>
-                        <ItemCounter />
+
+                        <ItemCounter
+                            currentValue={tempCartProduct.quantity}
+                            updateQuantity={onUpdateQuantity}
+                            maxValue={product.inStock > 10 ? 10 : product.inStock}
+                        />
                         <SizeSelector
                             sizes={product.sizes}
                             selectedSize={tempCartProduct.size}
@@ -60,7 +89,7 @@ const ProductPage: NextPage<Props> = ({ product }) => {
                     {
                         product.inStock > 0 ?
                             (
-                                <Button color='secondary' className="circular-btn" fullWidth>
+                                <Button color='secondary' className="circular-btn" fullWidth onClick={onAddProduct}>
                                     {
                                         tempCartProduct.size ? 'Agregar al carrito' : 'Selecciona un tamaño'
                                     }
