@@ -29,18 +29,13 @@ const registerUser = async (req: NextApiRequest, res: NextApiResponse<Data>) => 
         return res.status(400).json({ message: 'Password must be at least 6 characters long' });
     }
 
-    if (password.length < 2) {
-        return res.status(400).json({ message: 'Password must be at least 2 characters long' });
-    }
-
     if (!email.includes('@') || !email.includes('.')) {
-        return res.status(400).json({ message: 'Email must be valid' });
+        return res.status(400).json({ message: 'Email must be container @ and dot' });
     }
 
-    if (validations.isValidEmail(email)) {
-        return res.status(400).json({ message: 'Email must be valid' });
+    if (!validations.isValidEmail(email)) {
+        return res.status(400).json({ message: 'Email must be valid for regexp' });
     }
-
 
     await db.connect();
     const userExist = await User.findOne({ email });
