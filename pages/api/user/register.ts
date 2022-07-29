@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import bcrypt from 'bcryptjs';
 import { db } from '../../../database';
 import { User } from '../../../models';
 import { jwt, validations } from '../../../utils';
-import bcrypt from 'bcryptjs';
 
 type Data = | { message: string; }
     | { token: string; user: { name: string; email: string; role: string } }
@@ -33,7 +33,6 @@ const registerUser = async (req: NextApiRequest, res: NextApiResponse<Data>) => 
         return res.status(400).json({ message: 'Password must be at least 2 characters long' });
     }
 
-    // TODO: validated email
     if (!email.includes('@') || !email.includes('.')) {
         return res.status(400).json({ message: 'Email must be valid' });
     }
