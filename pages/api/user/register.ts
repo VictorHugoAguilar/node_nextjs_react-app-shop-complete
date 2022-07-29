@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { db } from '../../../database';
 import { User } from '../../../models';
-import { jwt } from '../../../utils';
+import { jwt, validations } from '../../../utils';
 import bcrypt from 'bcryptjs';
 
 type Data = | { message: string; }
@@ -33,7 +33,15 @@ const registerUser = async (req: NextApiRequest, res: NextApiResponse<Data>) => 
         return res.status(400).json({ message: 'Password must be at least 2 characters long' });
     }
 
-    // TODO: validate email
+    // TODO: validated email
+    if (!email.includes('@') || !email.includes('.')) {
+        return res.status(400).json({ message: 'Email must be valid' });
+    }
+
+    if (validations.isValidEmail(email)) {
+        return res.status(400).json({ message: 'Email must be valid' });
+    }
+
 
     await db.connect();
     const userExist = await User.findOne({ email });
