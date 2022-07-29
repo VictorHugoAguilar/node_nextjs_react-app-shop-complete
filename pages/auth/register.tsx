@@ -20,8 +20,6 @@ const RegisterPage = () => {
     const [showError, setShowError] = useState(false);
 
     const onRegisterUser = async ({ name, email, password }: FormData) => {
-        console.log('onRegisterUser', name, email, password);
-
         setShowError(false);
         try {
             const { data } = await shopApi.post('/user/register', { name, email, password });
@@ -54,6 +52,7 @@ const RegisterPage = () => {
                         <Grid item xs={12}>
                             <TextField
                                 label="Nombre completo"
+                                autoComplete='name'
                                 variant="filled"
                                 fullWidth
                                 {...register('name', {
@@ -73,6 +72,7 @@ const RegisterPage = () => {
                                 type='email'
                                 label="Correo electrónico"
                                 variant="filled"
+                                autoComplete='email'
                                 fullWidth
                                 {...register('email', {
                                     required: 'El email es requerido',
@@ -87,6 +87,7 @@ const RegisterPage = () => {
                                 label="Contraseña"
                                 type='password'
                                 variant="filled"
+                                autoComplete='current-password'
                                 fullWidth
                                 {...register('password', {
                                     required: 'El password es requerido',

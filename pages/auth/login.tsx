@@ -19,12 +19,12 @@ const LoginPage = () => {
     const [showError, setShowError] = useState(false);
 
     const onLoginUser = async ({ email, password }: FormData) => {
-        console.log('onLoginUser', email, password);
-
         setShowError(false);
         try {
             const { data } = await shopApi.post('/user/login', { email, password });
             const { token, user } = data;
+
+
         } catch (error) {
             setShowError(true);
             if (axios.isAxiosError(error)) {
@@ -54,6 +54,7 @@ const LoginPage = () => {
                                 type='email'
                                 label="Correo electrónico"
                                 variant="filled"
+                                autoComplete='email'
                                 fullWidth
                                 {...register('email', {
                                     required: 'El correo electrónico es requerido',
@@ -69,6 +70,7 @@ const LoginPage = () => {
                                 label="Contraseña"
                                 type='password'
                                 variant="filled"
+                                autoComplete='current-password'
                                 fullWidth
                                 {...register('password', {
                                     required: 'El password es requerido',
