@@ -1,12 +1,9 @@
 import { useContext, useState } from 'react';
 import NextLink from 'next/link';
 import { useForm } from 'react-hook-form';
-import axios from 'axios';
 import { Box, Button, Chip, Grid, Link, TextField, Typography } from "@mui/material";
 import { ErrorOutline } from '@mui/icons-material';
 import { AuthLayout } from "../../components/layout";
-import { shopApi } from '../../api';
-import { validations } from '../../utils';
 import { AuthContext } from '../../context';
 import { useRouter } from 'next/router';
 
@@ -35,8 +32,9 @@ const RegisterPage = () => {
             return;
         }
 
+        const destination = router.query.p?.toString() || '/';
         // Navegar a la pantalla que el usuario estaba antes de hacer login
-        router.replace('/');
+        router.replace(destination);
     }
 
     return (
@@ -131,7 +129,10 @@ const RegisterPage = () => {
                         </Grid>
 
                         <Grid item xs={12} display='flex' justifyContent='end' >
-                            <NextLink href="/auth/login" passHref>
+                            <NextLink
+                                href={router.query.p ? `/auth/login?p=${router.query.p}` : `/auth/login`}
+                                passHref
+                            >
                                 <Link underline="hover" color={'black'} > ¿Ya tienes cuenta? </Link>
                             </NextLink>
                         </Grid>

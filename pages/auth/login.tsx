@@ -31,8 +31,9 @@ const LoginPage = () => {
             return;
         }
 
+        const destination = router.query.p?.toString() || '/';
         // Navegar a la pantalla que el usuario estaba antes de hacer login
-        router.replace('/');
+        router.replace(destination);
     }
 
     return (
@@ -108,7 +109,10 @@ const LoginPage = () => {
                         </Grid>
 
                         <Grid item xs={12} display='flex' justifyContent='end' >
-                            <NextLink href="/auth/register" passHref>
+                            <NextLink
+                                href={router.query.p ? `/auth/register?p=${router.query.p}` : `/auth/register`}
+                                passHref
+                            >
                                 <Link underline="hover" color={'black'} >¿No tienes una cuenta?, registrate aquí</Link>
                             </NextLink>
                         </Grid>

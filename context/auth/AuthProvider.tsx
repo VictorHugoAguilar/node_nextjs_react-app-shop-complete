@@ -1,10 +1,10 @@
-import { Cookie } from '@mui/icons-material';
-import axios from 'axios';
-import Cookies from 'js-cookie';
 import { FC, useEffect, useReducer } from 'react';
-import { shopApi } from '../../api';
-import { IUser } from '../../interfaces';
+import { useRouter } from 'next/router';
+import Cookies from 'js-cookie';
+import axios from 'axios';
 import { authReducer, AuthContext } from './';
+import { IUser } from '../../interfaces';
+import { shopApi } from '../../api';
 
 export interface AuthState {
     isLoggedIn: boolean;
@@ -22,6 +22,7 @@ interface Props {
 
 export const AuthProvider: FC<Props> = ({ children }) => {
 
+    const router = useRouter();
     const [state, dispatch] = useReducer(authReducer, AUTH_INITIAL_STATE);
 
     useEffect(() => {
@@ -29,6 +30,11 @@ export const AuthProvider: FC<Props> = ({ children }) => {
     }, []);
 
     const checkToken = async () => {
+        
+        if(!Cookies.get('token')) {
+            return;
+        }
+
         try {
             const { data } = await shopApi.post('/user/validate-token');
             const { token, user } = data;
@@ -84,6 +90,14 @@ export const AuthProvider: FC<Props> = ({ children }) => {
         }
     }
 
+    const logout = () => {
+        Cookies.remove('token');
+        Cookies.remove('cart');
+        dispatch({ type: '[Auth] - Logout' });
+        router.reload();
+    }
+
+
     return (
         <AuthContext.Provider value={{
             ...state,
@@ -91,6 +105,7 @@ export const AuthProvider: FC<Props> = ({ children }) => {
             // methods
             loginUser,
             registerUser,
+            logout,
         }}>
             {children}
         </AuthContext.Provider>
