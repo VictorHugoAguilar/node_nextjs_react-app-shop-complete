@@ -38,7 +38,9 @@ const LoginPage = () => {
 
     return (
         <AuthLayout title="Iniciar sesión" pageDescription="Iniciar sesión">
+
             <form onSubmit={handleSubmit(onLoginUser)} noValidate>
+
                 <Box sx={{ width: 450, padding: '10px 20px' }}>
 
                     <Grid container spacing={2}>
@@ -49,7 +51,7 @@ const LoginPage = () => {
 
                         <Grid item xs={12}>
                             <TextField
-                                type={'email'}
+                                type='email'
                                 label="Correo electrónico"
                                 variant="filled"
                                 fullWidth
@@ -113,7 +115,9 @@ const LoginPage = () => {
                     </Grid>
 
                 </Box>
+
             </form>
+
         </AuthLayout>
     )
 }
