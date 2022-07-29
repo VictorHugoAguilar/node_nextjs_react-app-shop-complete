@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import NextLink from 'next/link';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
@@ -7,6 +7,8 @@ import { ErrorOutline } from '@mui/icons-material';
 import { AuthLayout } from "../../components/layout";
 import { shopApi } from '../../api';
 import { validations } from '../../utils';
+import { AuthContext } from '../../context';
+import { useRouter } from 'next/router';
 
 type FormData = {
     name: string;
@@ -16,24 +18,25 @@ type FormData = {
 
 const RegisterPage = () => {
 
+    const router = useRouter();
+    const { registerUser } = useContext(AuthContext);
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
     const [showError, setShowError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
     const onRegisterUser = async ({ name, email, password }: FormData) => {
-        setShowError(false);
-        try {
-            const { data } = await shopApi.post('/user/register', { name, email, password });
-            const { token, user } = data;
 
-        } catch (error) {
+        const { hasError, message } = await registerUser(name, email, password);
+
+        if (hasError) {
             setShowError(true);
-            if (axios.isAxiosError(error)) {
-                console.error(error.response?.data);
-            }
+            setErrorMessage(message!);
             setTimeout(() => setShowError(false), 3000);
+            return;
         }
 
-        // TODO: navegar a la pantalla que el usuario estaba antes de hacer login
+        // Navegar a la pantalla que el usuario estaba antes de hacer login
+        router.replace('/');
     }
 
     return (
