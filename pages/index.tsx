@@ -1,12 +1,16 @@
-import type { NextPage } from 'next'
-import { Typography } from '@mui/material'
-import { ShopLayout } from '../components/layout'
-import { ProductList } from '../components/products/'
-import { initialData } from '../database/seed-data'
-import { useProducts } from '../hooks'
-import { FullScreenLoading } from '../components/ui'
+import type { NextPage } from 'next';
+import { useSession } from 'next-auth/react';
+
+import { Typography } from '@mui/material';
+import { ShopLayout } from '../components/layout';
+import { ProductList } from '../components/products/';
+import { useProducts } from '../hooks';
+import { FullScreenLoading } from '../components/ui';
 
 const HomePage: NextPage = () => {
+
+  const session = useSession();
+  console.log(session);
 
   const { products, isLoading, isError } = useProducts('/products');
 

@@ -17,7 +17,7 @@ export const UiProvider: FC<Props> = ({ children }) => {
 
     const [state, dispatch] = useReducer(uiReducer, UI_INITIAL_STATE);
 
-    const toogleSideMenu = () => {
+    const toggleSideMenu = () => {
         dispatch({ type: '[UI] - ToogleMenu' });
     }
 
@@ -26,7 +26,7 @@ export const UiProvider: FC<Props> = ({ children }) => {
             ...state,
 
             // actions
-            toogleSideMenu,
+            toggleSideMenu,
         }}>
             {children}
         </UiContext.Provider>
