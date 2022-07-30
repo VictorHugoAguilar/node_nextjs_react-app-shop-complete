@@ -23,7 +23,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "pages/checkout/middleware.ts.temp"  ],
   "exclude": [
     "node_modules"
   ]
