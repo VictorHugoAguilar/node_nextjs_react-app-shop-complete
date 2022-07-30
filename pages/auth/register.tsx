@@ -1,11 +1,17 @@
 import { useContext, useState } from 'react';
+
 import NextLink from 'next/link';
+import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
+import { GetServerSideProps } from 'next';
+import { signIn, getSession } from 'next-auth/react';
+
 import { Box, Button, Chip, Grid, Link, TextField, Typography } from "@mui/material";
 import { ErrorOutline } from '@mui/icons-material';
+
 import { AuthLayout } from "../../components/layout";
 import { AuthContext } from '../../context';
-import { useRouter } from 'next/router';
+import { validations } from '../../utils';
 
 type FormData = {
     name: string;
@@ -32,9 +38,10 @@ const RegisterPage = () => {
             return;
         }
 
-        const destination = router.query.p?.toString() || '/';
-        // Navegar a la pantalla que el usuario estaba antes de hacer login
-        router.replace(destination);
+        // const destination = router.query.p?.toString() || '/';
+        // // Navegar a la pantalla que el usuario estaba antes de hacer login
+        // router.replace(destination);
+        await signIn('credentials', { email, password });
     }
 
     return (
@@ -145,6 +152,27 @@ const RegisterPage = () => {
 
         </AuthLayout >
     )
+}
+
+export const getServerSideProps: GetServerSideProps = async ({ req, query }) => {
+
+    const session = await getSession({ req });
+
+    const { p = '/' } = query;
+
+    if (session) {
+        return {
+            redirect: {
+                destination: p.toString(),
+                permanent: false
+            }
+        }
+    }
+
+    return {
+        props: {
+        }
+    }
 }
 
 export default RegisterPage;
