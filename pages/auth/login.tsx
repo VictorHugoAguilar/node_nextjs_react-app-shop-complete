@@ -142,7 +142,7 @@ const LoginPage = () => {
                             <Divider sx={{ width: '100%', mb: 2 }} />
                             {
                                 Object.values(providers).map(provider => {
-                                    if (provider.id == 'credentials') {
+                                    if (provider?.id == 'credentials') {
                                         return (<div key={provider.id}></div>);
                                     }
 
