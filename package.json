@@ -5,8 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "next build && next start",
+    "check-types": "tsc --noemit",
+    "lint": "npm run check-types && next lint"
   },
   "dependencies": {
     "@emotion/react": "^11.9.3",
