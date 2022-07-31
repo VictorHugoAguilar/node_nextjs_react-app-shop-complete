@@ -26,8 +26,8 @@ export default NextAuth({
         }),
 
         GithubProvider({
-            clientId: process.env.GITHUB_ID,
-            clientSecret: process.env.GITHUB_SECRET,
+            clientId: process.env.GITHUB_ID!,
+            clientSecret: process.env.GITHUB_SECRET!,
         }),
 
     ],
@@ -53,7 +53,7 @@ export default NextAuth({
     callbacks: {
 
         async jwt({ token, account, user }) {
-             console.log('jwt => ', { token, account, user });
+            console.log('jwt => ', { token, account, user });
 
             if (account) {
                 token.accessToken = account.access_token;
