@@ -1,12 +1,13 @@
+import { useContext, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { Box, Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
-import Cookies from "js-cookie";
-import { GetServerSideProps } from "next";
-import { useRouter } from "next/router";
-import { useContext } from "react";
+import Cookies from 'js-cookie';
 import { useForm } from "react-hook-form";
-import { ShopLayout } from "../../components/layout";
-import { CartContext } from "../../context";
-import { countries, jwt } from "../../utils";
+
+import { countries } from "../../utils";
+import { CartContext } from '../../context';
+import { ShopLayout } from '../../components/layout';
+
 
 type FormData = {
     firstName: string;
@@ -33,51 +34,65 @@ const getAddressFromCookies = (): FormData => {
     }
 }
 
+
+
 const AddressPage = () => {
 
     const router = useRouter();
     const { updateAddress } = useContext(CartContext);
 
-    const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
-        defaultValues: getAddressFromCookies()
+    const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>({
+        defaultValues: {
+            firstName: '',
+            lastName: '',
+            address: '',
+            address2: '',
+            zip: '',
+            city: '',
+            country: countries[0].code,
+            phone: '',
+        }
     });
+
+    useEffect(() => {
+        reset(getAddressFromCookies());
+
+    }, [reset])
+
 
     const onSubmitAddress = (data: FormData) => {
         updateAddress(data);
         router.push('/checkout/summary');
     }
 
-
     return (
-        <ShopLayout title="Dirección" pageDescription="Dirección de envío" >
-
+        <ShopLayout title="Dirección" pageDescription="Confirmar dirección del destino">
             <form onSubmit={handleSubmit(onSubmitAddress)}>
-                <Typography variant="h1" component="h1">Dirección</Typography>
+
+
+                <Typography variant="h1" component='h1'>Dirección</Typography>
 
                 <Grid container spacing={2} sx={{ mt: 2 }}>
 
                     <Grid item xs={12} sm={6}>
                         <TextField
-                            label="Nombre"
-                            fullWidth
+                            label='Nombre'
                             variant="filled"
-                            {
-                            ...register('firstName', {
-                                required: 'este campo es requerido'
+                            fullWidth
+                            {...register('firstName', {
+                                required: 'Este campo es requerido'
                             })}
                             error={!!errors.firstName}
                             helperText={errors.firstName?.message}
                         />
                     </Grid>
-
                     <Grid item xs={12} sm={6}>
                         <TextField
-                            label="Apellido"
-                            fullWidth
+                            label='Apellido'
                             variant="filled"
-                            {
-                            ...register('lastName', {
-                                required: 'este campo es requerido'
+                            fullWidth
+                            {...register('lastName', {
+                                required: 'Este campo es requerido'
                             })}
                             error={!!errors.lastName}
                             helperText={errors.lastName?.message}
@@ -86,53 +101,44 @@ const AddressPage = () => {
 
                     <Grid item xs={12} sm={6}>
                         <TextField
-                            label="Dirección"
-                            fullWidth
+                            label='Dirección'
                             variant="filled"
-                            {
-                            ...register('address', {
-                                required: 'este campo es requerido'
+                            fullWidth
+                            {...register('address', {
+                                required: 'Este campo es requerido'
                             })}
                             error={!!errors.address}
                             helperText={errors.address?.message}
                         />
                     </Grid>
-
                     <Grid item xs={12} sm={6}>
                         <TextField
-                            label="Direccion 2 (opcional)"
-                            fullWidth
+                            label='Dirección 2 (opcional)'
                             variant="filled"
-                            {
-                            ...register('address2', {
-                            })}
-                            error={!!errors.address2}
-                            helperText={errors.address2?.message}
+                            fullWidth
+                            {...register('address2')}
                         />
                     </Grid>
 
                     <Grid item xs={12} sm={6}>
                         <TextField
-                            label="Código Postal"
-                            fullWidth
+                            label='Código Postal'
                             variant="filled"
-                            {
-                            ...register('zip', {
-                                required: 'este campo es requerido'
+                            fullWidth
+                            {...register('zip', {
+                                required: 'Este campo es requerido'
                             })}
                             error={!!errors.zip}
                             helperText={errors.zip?.message}
                         />
                     </Grid>
-
                     <Grid item xs={12} sm={6}>
                         <TextField
-                            label="Ciudad"
-                            fullWidth
+                            label='Ciudad'
                             variant="filled"
-                            {
-                            ...register('city', {
-                                required: 'este campo es requerido'
+                            fullWidth
+                            {...register('city', {
+                                required: 'Este campo es requerido'
                             })}
                             error={!!errors.city}
                             helperText={errors.city?.message}
@@ -140,36 +146,37 @@ const AddressPage = () => {
                     </Grid>
 
                     <Grid item xs={12} sm={6}>
-                        <FormControl fullWidth>
-                            <InputLabel>País</InputLabel>
-                            <Select
-                                defaultValue={countries[0].code}
-                                variant="filled"
-                                label='País'
-                                value={'ARG'}
-                                {
-                                ...register('country', {
-                                    required: 'este campo es requerido'
-                                })}
-                                error={!!errors.country}
-                            // helperText={errors.country?.message}
-                            >
-                                {
-                                    countries.map(country => (
-                                        <MenuItem key={country.code} value={country.code}>{country.name}</MenuItem>
-                                    ))
-                                }
-                            </Select>
-                        </FormControl>
+                        {/* <FormControl fullWidth> */}
+                        <TextField
+                            // select
+                            variant="filled"
+                            label="País"
+                            fullWidth
+                            // defaultValue={ Cookies.get('country') || countries[0].code }
+                            {...register('country', {
+                                required: 'Este campo es requerido'
+                            })}
+                            error={!!errors.country}
+                            helperText={errors.country?.message}
+                        />
+                        {/* {
+                                countries.map( country => (
+                                    <MenuItem 
+                                        key={ country.code }
+                                        value={ country.code }
+                                    >{ country.name }</MenuItem>
+                                ))
+                            }
+                        </TextField> */}
+                        {/* </FormControl> */}
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <TextField
-                            label="Teléfono"
-                            fullWidth
+                            label='Teléfono'
                             variant="filled"
-                            {
-                            ...register('phone', {
-                                required: 'este campo es requerido'
+                            fullWidth
+                            {...register('phone', {
+                                required: 'Este campo es requerido'
                             })}
                             error={!!errors.phone}
                             helperText={errors.phone?.message}
@@ -178,32 +185,34 @@ const AddressPage = () => {
 
                 </Grid>
 
-                {/* Button */}
-                <Box sx={{ mt: 5 }} display='flex' justifyContent={'center'} >
-                    <Button type='submit' color='secondary' className="circular-btn" size='large'>
+
+                <Box sx={{ mt: 5 }} display='flex' justifyContent='center'>
+                    <Button type="submit" color="secondary" className="circular-btn" size="large">
                         Revisar pedido
                     </Button>
                 </Box>
 
             </form>
-
         </ShopLayout>
     )
 }
 
+
+// You should use getServerSideProps when:
+// - Only if you need to pre-render a page whose data must be fetched at request time
 // export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
 //     const { token = '' } = req.cookies;
 //     let isValidToken = false;
 
 //     try {
-//         await jwt.isValidToken(token);
+//         await jwt.isValidToken( token );
 //         isValidToken = true;
 //     } catch (error) {
 //         isValidToken = false;
 //     }
 
-//     if (!isValidToken) {
+//     if ( !isValidToken ) {
 //         return {
 //             redirect: {
 //                 destination: '/auth/login?p=/checkout/address',
@@ -213,9 +222,13 @@ const AddressPage = () => {
 //     }
 
 //     return {
-//         props: {},
+//         props: {
+
+//         }
 //     }
 // }
 
 
-export default AddressPage;
+
+
+export default AddressPage
