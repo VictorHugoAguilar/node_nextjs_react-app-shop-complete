@@ -4,9 +4,10 @@ import { Box, Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField
 import Cookies from 'js-cookie';
 import { useForm } from "react-hook-form";
 
-import { countries } from "../../utils";
+import { countries, jwt } from "../../utils";
 import { CartContext } from '../../context';
 import { ShopLayout } from '../../components/layout';
+import { GetServerSideProps } from 'next';
 
 
 type FormData = {
@@ -206,13 +207,13 @@ const AddressPage = () => {
 //     let isValidToken = false;
 
 //     try {
-//         await jwt.isValidToken( token );
+//         await jwt.isValidToken(token);
 //         isValidToken = true;
 //     } catch (error) {
 //         isValidToken = false;
 //     }
 
-//     if ( !isValidToken ) {
+//     if (!isValidToken) {
 //         return {
 //             redirect: {
 //                 destination: '/auth/login?p=/checkout/address',

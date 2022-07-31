@@ -52,11 +52,11 @@ export const CartProvider: FC<Props> = ({ children }) => {
         try {
             const cookieProducts = Cookie.get('cart') ? JSON.parse(Cookie.get('cart')!) : []
 
-            console.log('useEffect - CartProvider', cookieProducts);
+            // console.log('useEffect - CartProvider', cookieProducts);
 
             dispatch({ type: '[Cart] - LoadCart from cookies | storage', payload: cookieProducts });
         } catch (error) {
-            console.log('useEffect - CartProvider error empty cart', error);
+            // console.log('useEffect - CartProvider error empty cart', error);
 
             dispatch({ type: '[Cart] - LoadCart from cookies | storage', payload: [] });
         }
@@ -84,7 +84,7 @@ export const CartProvider: FC<Props> = ({ children }) => {
 
     useEffect(() => {
 
-        console.log('useEffect - CartProvider state => ', state);
+        // console.log('useEffect - CartProvider state => ', state);
 
         Cookie.set('cart', JSON.stringify(state.cart));
     }, [state.cart]);

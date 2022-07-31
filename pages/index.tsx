@@ -10,7 +10,7 @@ import { FullScreenLoading } from '../components/ui';
 const HomePage: NextPage = () => {
 
   const session = useSession();
-  console.log(session);
+  // console.log(session);
 
   const { products, isLoading, isError } = useProducts('/products');
 
