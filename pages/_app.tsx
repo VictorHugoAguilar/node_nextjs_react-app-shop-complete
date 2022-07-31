@@ -18,7 +18,8 @@ function MyApp({ Component, pageProps }: AppProps) {
           // Interval a modo de refresh para obtención de datos
           // refreshInterval: 500,
           fetcher: (resource, init) => fetch(resource, init).then(res => res.json())
-        }} >
+        }}
+      >
         <AuthProvider>
           <CartProvider>
             <UiProvider>

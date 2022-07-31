@@ -29,7 +29,7 @@ const LoginPage = () => {
 
     useEffect(() => {
         getProviders().then(prov => {
-            console.log('providers => ', prov);
+            // console.log('providers => ', prov);
             setProviders(prov);
         });
     }, []);
@@ -49,7 +49,13 @@ const LoginPage = () => {
         // // Navegar a la pantalla que el usuario estaba antes de hacer login
         // router.replace(destination);
 
-        await signIn('credentials', { email, password });
+        console.log('router.query.p?.toString() => ', router.query.p?.toString());
+
+        await signIn('credentials', {
+            email,
+            password,
+            // returnTo: router.query.p?.toString() || '/'
+        });
     }
 
     return (
@@ -142,7 +148,7 @@ const LoginPage = () => {
                             <Divider sx={{ width: '100%', mb: 2 }} />
                             {
                                 Object.values(providers).map(provider => {
-                                    if (provider?.id == 'credentials') {
+                                    if (provider.id == 'credentials') {
                                         return (<div key={provider.id}></div>);
                                     }
 
